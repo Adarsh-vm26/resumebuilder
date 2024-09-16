@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resume-output {
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .resume-output h2 {
+            color: #333;
+        }
+
+        .resume-output p, .resume-output ul {
+            margin: 10px 0;
+        }
+
+        .resume-output ul {
+            list-style-type: square;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Builder</h1>
+        
+        <!-- Form for Resume Input -->
+        <form id="resume-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required>
+
+            <label for="job-title">Job Title:</label>
+            <input type="text" id="job-title" required>
+
+            <label for="summary">Summary:</label>
+            <textarea id="summary" rows="5" required></textarea>
+
+            <label for="skills">Skills (comma separated):</label>
+            <input type="text" id="skills" required>
+
+            <label for="experience">Experience (company and role):</label>
+            <textarea id="experience" rows="5" required></textarea>
+
+            <label for="education">Education (school and degree):</label>
+            <textarea id="education" rows="5" required></textarea>
+
+            <button type="submit">Generate Resume</button>
+        </form>
+
+        <!-- Section to Display Generated Resume -->
+        <div id="resume-output" class="resume-output"></div>
+    </div>
+
+    <script>
+        // Function to handle form submission
+        document.getElementById('resume-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get input values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const jobTitle = document.getElementById('job-title').value;
+            const summary = document.getElementById('summary').value;
+            const skills = document.getElementById('skills').value.split(',');
+            const experience = document.getElementById('experience').value;
+            const education = document.getElementById('education').value;
+
+            // Build resume HTML
+            const resumeHTML = `
+                <h2>${name}</h2>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Job Title:</strong> ${jobTitle}</p>
+                <h3>Summary</h3>
+                <p>${summary}</p>
+                <h3>Skills</h3>
+                <ul>${skills.map(skill => `<li>${skill.trim()}</li>`).join('')}</ul>
+                <h3>Experience</h3>
+                <p>${experience}</p>
+                <h3>Education</h3>
+                <p>${education}</p>
+            `;
+
+            // Display the resume
+            document.getElementById('resume-output').innerHTML = resumeHTML;
+        });
+    </script>
+</body>
+</html>
